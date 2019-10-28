@@ -9,6 +9,7 @@ A visualization of LeNet.
 
 ![image](images/net.jpg)
 
+How the graph for the visualization was build.
 
 ```python
 
@@ -39,6 +40,8 @@ x = layers.Dense(84, activation = 'relu', kernel_initializer='he_normal' )(x)
 x = layers.Dense(10, activation = 'softmax', kernel_initializer='he_normal' )(x)        
 
 
+# Now the graph is in a lenet-mnist.gml file, it 
+#    could be opened with tools like tulpan or gelphi
 ```
 
 
