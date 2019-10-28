@@ -15,6 +15,7 @@ import networkx as nx
 from collections.abc import Iterable
 
 from .data_extractor import TFDataExtractor
+from .graph import GMLGraph
 from .tensor import Tensor
 from .layout import layout_tensor
 
@@ -173,8 +174,25 @@ class NetGraph:
             edges = zip(source, dest, repeat({}))
 
         self.graph.add_edges_from(edges)
+
+
+    @classmethod
+    def keras_to_file(cls, input, file):
+        from keras import backed as K
+        from .keras_frontend import KerasFrontend
+
+        graph = GMLGraph(file='lenet-mnist.gml')
         
-        
+        data_extractor = TFDataExtractor(
+            sess = K.get_session(), 
+            feed_dict = { 
+                K.get_session().graph.get_tensor_by_name('conv2d_1_input:0') : input
+            }
+        )
+
+
+        ng = cls(graph=graph, data_extractor=data_extractor)
+        return KerasFrontend(ng)
 
 
 
