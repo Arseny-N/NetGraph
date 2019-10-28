@@ -3,32 +3,30 @@
 # NetGraph: A framework for graph based neural network exploration 
 
 This package allows to create a graph from a neural network.
-Visualization of the resulting network in tulpan.
+
+
+A visualization of LeNet.
 
 ![image](images/net.jpg)
-
-# Example: Building LeNet
 
 
 ```python
 
-
 from netgraph.netgraph import NetGraph
+from netgraph.nets.data import data
 
 from keras.models import load_model
 
-from netgraph.nets.data import data
-
-
-
+# Create the model
 model = load_model('weights/lenet-mnist.hdf5')
 
+# Create the data
 (x_train, x_train_raw, y_train), (x_test, x_test_raw, y_test) = data('mnist')
 
-
+# Create the graph builder
 layers = NetGraph.keras_to_file(input=x_test[:1], file='lenet-mnist.gml')
 
-
+# Build the graph
 x = layers.Input(name='conv2d_1_input')
 
 x = layers.Conv2D(6, (5, 5), padding='valid', activation = 'relu', kernel_initializer='he_normal')(x)
