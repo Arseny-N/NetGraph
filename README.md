@@ -28,7 +28,6 @@ model = load_model('weights/lenet-mnist.hdf5')
 
 layers = NetGraph.keras_to_file(input=x_test[:1], file='lenet-mnist.gml')
 
-layers = KerasFrontend(ng)
 
 x = layers.Input(name='conv2d_1_input')
 
